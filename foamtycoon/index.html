@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <title>Foam Tycoon</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #141719; }
+      /* CrazyGames: без лупы и меню выделения на долгом нажатии */
+      body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; }
+      #unity-canvas { position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: block; background: #141719; }
+      #loader { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #2178e6; color: #fff; font: 800 clamp(28px, 6vw, 72px)/1.05 system-ui, -apple-system, "Segoe UI", sans-serif; text-align: center; letter-spacing: 1px; }
+      #bar { margin-top: 5vh; width: min(60vw, 520px); height: 18px; border-radius: 9px; background: rgba(255,255,255,0.25); overflow: hidden; }
+      #fill { width: 0; height: 100%; border-radius: 9px; background: #5ee67a; transition: width 0.2s; }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="loader"><div>FOAM<br>TYCOON</div><div id="bar"><div id="fill"></div></div></div>
+    <script src="Build/WebGL.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        arguments: [],
+        dataUrl: "Build/WebGL.data.unityweb",
+        frameworkUrl: "Build/WebGL.framework.js.unityweb",
+        codeUrl: "Build/WebGL.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Dikua",
+        productName: "Foam Tycoon",
+        productVersion: "1.0",
+      }, function (p) {
+        document.getElementById("fill").style.width = Math.round(p * 100) + "%";
+      }).then(function () {
+        document.getElementById("loader").remove();
+        document.querySelector("#unity-canvas").focus();
+      }).catch(function (message) { console.error(message); });
+    </script>
+  </body>
+</html>
